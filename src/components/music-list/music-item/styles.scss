@@ -1,0 +1,17 @@
+.musicHidden {
+  display: none;
+}
+
+.musicItem__wr {
+  cursor: pointer;
+  padding: 24px;
+  background-color: var(--color-purple);
+  color: var(--color-primary);
+  max-width: 1248px;
+  margin: 0 auto;
+  margin-block: 10px;
+}
+
+.musicItem__name {
+  color: var(--color-primary);
+}

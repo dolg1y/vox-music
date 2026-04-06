@@ -1,22 +1,27 @@
 [
   {
+    "id": 0,
     "name": "Alena - Ярмарка судеб",
-    "url": "track_1.mp3"
+    "url": "src/local-mock-data/track_1.mp3"
   },
   {
-    "name": "Alena - Ярмарка судеб",
-    "url": "track_1.mp3"
+    "id": 1,
+    "name": "EGOSIN - Любящие глаза",
+    "url": "src/local-mock-data/track_2.mp3"
   },
   {
-    "name": "Alena - Ярмарка судеб",
-    "url": "track_1.mp3"
+    "id": 2,
+    "name": "Софья Крапивина - Дом на колёсах",
+    "url": "src/local-mock-data/track_3.mp3"
   },
   {
-    "name": "Alena - Ярмарка судеб",
-    "url": "track_1.mp3"
+    "id": 3,
+    "name": "Холла - Про Нас",
+    "url": "src/local-mock-data/track_4.mp3"
   },
   {
-    "name": "Alena - Ярмарка судеб",
-    "url": "track_1.mp3"
+    "id": 4,
+    "name": "Холла - Пятый трек",
+    "url": "src/local-mock-data/track_1.mp3"
   }
 ]

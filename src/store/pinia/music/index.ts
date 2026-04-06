@@ -1,18 +1,32 @@
-import {defineStore} from "pinia";
-
-import mockMusic from "@/store/pinia/music/mockMusic.json"
-
-console.log(mockMusic)
-console.log('test')
+import { defineStore } from "pinia";
+import mockMusic from './mockMusic.json'
 
 export const music = defineStore('music', {
     state: () => ({
-        count: 0,
-        musicList: mockMusic as Object
+        musicList: [],
+        activeMusic: null,
+        onEnded: false
     }),
     getters: {
         getMusicList(state) {
             return state.musicList
         },
+        getActiveMusic(state) {
+            return state.activeMusic
+        },
+        getRepeatMusic(state) {
+            return state.onEnded
+        }
     },
+    actions: {
+        fetchDataMusic() {
+            this.musicList = mockMusic.map((musicItem: Object) => { return musicItem })
+        },
+        setActiveMusic(id: number) {
+            this.activeMusic = this.musicList[id]
+        },
+        setRepeatMusic() {
+            this.onEnded = !this.onEnded
+        }
+    }
 })
