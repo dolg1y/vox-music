@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import mockMusic from './mockMusic.json'
 
+// TODO: Нужно разбить на файлы, добавить типитзацию
 export const music = defineStore('music', {
     state: () => ({
         musicList: [],
@@ -8,12 +9,14 @@ export const music = defineStore('music', {
         onEnded: false
     }),
     getters: {
+        // TODO: Вот тут названия норм, в целом все понятно.
         getMusicList(state) {
             return state.musicList
         },
         getActiveMusic(state) {
             return state.activeMusic
         },
+      // TODO: Что такое getRepeatMusic? Судя по названию мы должны получить музыку которая повторяется..
         getRepeatMusic(state) {
             return state.onEnded
         }
