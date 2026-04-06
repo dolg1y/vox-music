@@ -1,3 +1,5 @@
+// TODO: Хорошая практика это самому заполнять [README.md](README.md) описывать что за проект, для чего он и как с ним работать
+
 # vox-music
 
 This template should help get you started developing with Vue 3 in Vite.

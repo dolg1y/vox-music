@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useStore = defineStore('storeId', {
+    // TODO: Это что за комменты как от нейронки?))
     // рекомендуется стрелочная функция для полного вывода типа
     state: () => {
         return {

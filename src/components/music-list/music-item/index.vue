@@ -9,8 +9,17 @@ defineProps({
   musicList: Object,
 })
 
+// TODO: Название странное
 const onPlayMusic = (id) => {
+  // TODO: А если id не передали?) или там оказалась не сторока?
+
+  // TODO: Опять вопрос с ref и кеширвоанием дом элемента. Вед вызывая каждый раз getElementById ты заставляешь браузер проводить перерасчеты
+  // TODO: Аналогичная история и с модулем music. Его стоит закешировать в переменную и уже ее использовать
   const audioNow = document.getElementById(`track-${music().getActiveMusic?.id}`)
+  // TODO: Еще вопрос. Для чего ты объявил в самом верху константу audioNow, если она исполбзуется в самом низу?
+  // Это конечно микро оптимизации, НО лучше объевзять константы ближе к тому месту где она испольузется.
+  // Особенн оесли у тебя есть if, из-за которых до куска кода где ты работаешь с audioNow может вообще не дойти выполннеие
+
   const audio = document.getElementById(`track-${id}`)
 
   if(!isPlaying.value) {
@@ -37,6 +46,7 @@ const onPlayMusic = (id) => {
 }
 
 const onEndedCheck = () => {
+  // TODO: Тут тоже. Для чего объявил вверху. У тебя велик шанс что if не выполнится, соответственно память засрется лишней константой
   const audioNow = document.getElementById(`track-${music().getActiveMusic?.id}`)
 
   if(music().getRepeatMusic) {
@@ -54,6 +64,7 @@ const onEndedCheck = () => {
         v-for="{id, name, url} in musicList"
         class="musicItem__wr"
     >
+      <!-- TODO: id можно перенести в компьютед -->
       <audio @onended="onEndedCheck" :id='"track-" + id'>
         <source :src="url" type="audio/mp3">
         Your browser does not support the audio element.
