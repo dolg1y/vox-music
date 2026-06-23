@@ -6,6 +6,13 @@
   bottom: 0;
   left: 0;
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-bar__wr {
+  width: 1248px;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
