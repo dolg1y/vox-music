@@ -7,8 +7,6 @@ const actions = {
     setActiveMusic(id: number, url: string) {
         this.activeMusic = this.musicList[id]
         this.audio.src = url
-
-        console.log(this.activeMusic)
     },
     setRepeatMusic() {
         this.onEnded = !this.onEnded

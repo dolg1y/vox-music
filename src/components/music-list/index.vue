@@ -5,8 +5,6 @@ import { onMounted, ref } from "vue"
 
 const isPlaying = ref(false)
 
-console.log(isPlaying.value)
-
 const clickMusic = (id: number = null, url: string = null) => {
   if(!id) {
     return
@@ -14,7 +12,7 @@ const clickMusic = (id: number = null, url: string = null) => {
 
   if(!isPlaying.value) {
     music().setActiveMusic(id, url)
-    music().getActiveTrack.play()
+    music().getAudio.play()
     isPlaying.value = true
     changeVolume()
 
@@ -22,17 +20,17 @@ const clickMusic = (id: number = null, url: string = null) => {
   }
 
   if(id === music().getActiveMusic.id) {
-    music().getActiveTrack.pause()
+    music().getAudio.pause()
     isPlaying.value = false
 
     return
   }
 
   isPlaying.value = true
-  music().getActiveTrack.pause()
-  music().getActiveTrack.currentTime = 0
+  music().getAudio.pause()
+  music().getAudio.currentTime = 0
   music().setActiveMusic(id, url)
-  music().getActiveTrack.play()
+  music().getAudio.play()
   changeVolume()
 }
 
