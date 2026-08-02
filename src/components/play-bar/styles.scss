@@ -1,13 +1,14 @@
+@import "@/assets/scss/mixin";
+
 .play-bar {
   width: 100%;
   background: var(--color-primary);
-  height: 106px;
-  position: absolute;
+  height: var(--play-bar-height);
+  position: fixed;
   bottom: 0;
   left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  @include flex-center();
 }
 
 .play-bar__wr {
@@ -15,4 +16,29 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.play-bar__record-player {
+  display: flex;
+  gap: 16px;
+}
+
+.play-bar__play-button {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--rounding-circle);
+  border: none;
+  background: white;
+
+  @include flex-center();
+
+  & img {
+    width: 32px;
+    height: 32px;
+  }
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: var(--color-purple);
+  }
 }

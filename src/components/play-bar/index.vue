@@ -1,20 +1,17 @@
 <script setup lang="ts">
 import { music } from "@/store/pinia/music/index.js"
 import { computed, ref } from "vue"
-import { NButton } from 'naive-ui'
+import { changeVolume, repeatMusic } from "@/store/helpers/audioSettings";
 
 const isPlaying = ref(false)
-const value = ref(0)
-
-const activeMusic = music()
 
 const NOT_FOUND_MUSIC = 'Не указано'
 const REPEAT_BUTTON = 'repeat'
 const NO_REPEAT_BUTTON = 'no-repeat'
 
-const nameTrack = computed(() => activeMusic.getActiveMusic?.name || NOT_FOUND_MUSIC)
+const nameTrack = computed(() => music().getActiveMusic?.name || NOT_FOUND_MUSIC)
 const textRepeat = computed(() => {
-   if(activeMusic.getButtonRepeat) {
+   if(music().getButtonRepeat) {
      return REPEAT_BUTTON
    }
 
@@ -22,69 +19,50 @@ const textRepeat = computed(() => {
 })
 
 const prevMusic = () => {
-  if (activeMusic.getActiveMusic.id <= 0) {
-    music().getActiveTrack.currentTime = 0
-    music().getActiveTrack.play()
+  if (music().getActiveMusic.id <= 0) {
+    music().getAudio.currentTime = 0
+    music().getAudio.play()
 
     return
   }
 
-  music().getActiveTrack.pause()
-  music().getActiveTrack.currentTime = 0
-  activeMusic.setActiveMusic(activeMusic.getActiveMusic.id - 1)
-  activeMusic.getActiveTrack.play()
-  console.log(activeMusic.getActiveMusic)
+  music().getAudio.pause()
+  music().getAudio.currentTime = 0
+  music().setActiveMusic(music().getActiveMusic.id - 1)
+  music().getAudio.play()
   changeVolume()
 };
 
 const startOrPauseMusic = () => {
-  const audio = document.getElementById(`track-${activeMusic.getActiveMusic.id}`)
-
   if(!isPlaying.value) {
-    // TODO: Вот опять таки. Тут у тебя почему то есть ?. для запуска метода pause, а в дургих местах нет.
-    audio?.pause()
+    music().getAudio.pause()
     isPlaying.value = true
 
     return
   }
 
-  audio?.play()
+  music().getAudio.play()
   isPlaying.value = false
   changeVolume()
 }
 
 const nextMusic = () => {
-  console.log(music().getNextTrack)
-  if (activeMusic.getActiveMusic.id + 1 >= activeMusic.getMusicList.length) {
-    activeMusic.setActiveMusic(0)
-    // changeAudioCurrentTimeAndPlayTrack(audioNow, audioNow)
+  if (music().getActiveMusic.id + 1 >= music().getMusicList.length) {
+    music().setActiveMusic(0)
 
     return
   }
 
-  music().getActiveTrack.pause()
-  // changeAudioCurrentTimeAndPlayTrack(audioNow, audioNext)
-  music().setActiveMusic(activeMusic.getNextTrack.id, activeMusic.getNextTrack.url)
+  music().getAudio.pause()
+  music().getAudio.currentTime = 0
+  music().setActiveMusic(music().getActiveMusic.id + 1, music().getActiveMusic.url)
+  music().getAudio.play()
   changeVolume()
 }
-
-const changeVolume = () => {
-  const volume = document.getElementById('volume') as HTMLInputElement
-
-  music().getActiveTrack.volume = +volume.value / 100
-}
-
-const changeAudioCurrentTimeAndPlayTrack = (audioCurrentTime) => {
-  audioCurrentTime.currentTime = 0
-  music().getActiveTrack.play()
-}
-
-const repeatMusic = () => { activeMusic.setRepeatMusic() }
 </script>
 
 <template>
-  <!-- TODO: ref есть. Но не используется... -->
-  <div class="play-bar" ref="playbar">
+  <div class="play-bar">
     <div class="play-bar__wr">
       <div class="play-bar__name">
         <img src="" alt="">
@@ -93,16 +71,18 @@ const repeatMusic = () => { activeMusic.setRepeatMusic() }
         </div>
       </div>
       <div class="play-bar__record-player">
-        <button @click="prevMusic">prev</button>
-        <button type="button" @click="startOrPauseMusic">play</button>
-        <button @click="nextMusic">next</button>
+        <button type="button" @click="prevMusic">prev</button>
+        <button class="play-bar__play-button" type="button" @click="startOrPauseMusic">
+          <img src="/play-bar-icons/play.png" alt="">
+        </button>
+        <button type="button" @click="nextMusic">next</button>
       </div>
       <div>
         <button @click="repeatMusic">{{ textRepeat }}</button>
       </div>
-      <!-- TODO: А чего не стал оборачивать input в label? -->
       <div class="play-bar__volume">
-        <n-slider v-model:value="value" :step="10" />
+        <input @input="changeVolume" type="range" id="volume" name="volume" min="0" max="100" value="100" />
+        <label for="volume">Volume</label>
       </div>
     </div>
   </div>

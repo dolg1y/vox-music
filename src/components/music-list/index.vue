@@ -1,7 +1,8 @@
 <script setup lang="ts">
 
 import { music } from "@/store/pinia/music/index.js"
-import { onMounted, ref } from "vue"
+import {onMounted, ref, watch} from "vue"
+import { changeVolume } from "@/store/helpers/audioSettings";
 
 const isPlaying = ref(false)
 
@@ -34,17 +35,12 @@ const clickMusic = (id: number = null, url: string = null) => {
   changeVolume()
 }
 
-// const onEndedCheck = () => {
-//   if(music().getButtonRepeat) {
-//     changeTimeAndPlay()
+// watch(music().getActiveMusic.id, (newChecked: boolean, oldChecked: boolean) => {
+//   if(newChecked !== oldChecked && music().getButtonRepeat) {
+//     music().getAudio.currentTime = 0
+//     music().getAudio.play()
 //   }
-// }
-
-const changeVolume = () => {
-  const volume = document.getElementById('volume') as HTMLInputElement
-
-  music().getActiveTrack.volume = +volume.value / 100
-}
+// })
 
 onMounted(() => {
   music().fetchDataMusic()

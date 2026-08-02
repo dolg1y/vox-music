@@ -5,8 +5,16 @@
   background-color: var(--color-purple);
   color: var(--color-primary);
   max-width: 1248px;
+  width: 100%;
   margin: 0 auto;
   margin-block: 10px;
+}
+
+.music-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-bottom: var(--play-bar-height);
 }
 
 .music-list__name {
